@@ -14,8 +14,12 @@ DB.cs633fp_db.query('select * from cs633fp.user;', function(err, results, fields
     console.log(results);
 });
 
+DB.cs633fp_db.query("INSERT INTO user (username,password,city,state,DOB) values('test','test','city','state','32342')", function(err, results){
+    if (err)throw err;
+});
 
 DB.cs633fp_db.end(function (err) {
     console.log('Thread ID:' + DB.cs633fp_db.threadId + ' has been terminated')
 });
+
 
