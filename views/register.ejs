@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>A beer & wine consumption tracker web based application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script  type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-dark bg-inverse">
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#ngn_nav_bar">
+        </button>
+        <a class="navbar-brand" href="/"><img src="" alt="CS633FP" height="40"></a>
+        <div class="collapse navbar-toggleable-xs" id="ngn_nav_bar">
+            <!-- float to the right on screen sizes of small and up-->
+            <ul class="nav navbar-nav pull-sm-right">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/features">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="/users/login">LogIn</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/register" class="btn btn-primary">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+    <h1><span class="fa fa-sign-in"></span>Register</h1>
+    <form class="form-register" method="POST" action="/users/register">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" placeholder="Email" name="username">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password" name="password">
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" placeholder="Password" name="password2">
+        </div>
+        <div class="form-group">
+            <label>City</label>
+            <input type="City" class="form-control" placeholder="City" name="city">
+        </div>
+
+        <div class="form-group">
+            <label>Sate</label>
+            <input type="sate" class="form-control" placeholder="state" name="state">
+        </div>
+
+        <div class="form-group">
+            <label>Birth Date</label>
+            <input type="date" class="form-control" placeholder="DOB" name="dob">
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+<footer class="footer container">
+    <p>&copy; 2016 A project for CS633 Distributed Software Development and Management class. A beer & wine consumption tracker web based application that allows users to keep tabs on their favorite beverages,
+        log notes and pictures and leverage reporting tools to grab snap shots of past data..</p>
+</footer>
+
+</body>
+</html>
