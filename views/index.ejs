@@ -1,47 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>A beer & wine consumption tracker web based application</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="stylesheets/style.css">
-  <script  type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-</head>
-
-<body>
-
-  <div class="container-fluid">
-    <nav class="navbar navbar-dark bg-inverse">
-      <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#ngn_nav_bar">
-      </button>
-      <a class="navbar-brand" href="/"><img src="" alt="CS633FP" height="40"></a>
-      <div class="collapse navbar-toggleable-xs" id="ngn_nav_bar">
-        <!-- float to the right on screen sizes of small and up-->
-        <ul class="nav navbar-nav pull-sm-right">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/features">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-primary" href="/users/login">LogIn</a>
-          </li>
-          <li class="nav-item">
-            <a href="/users/register" class="btn btn-primary">Register</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
+<% include header_notlogged%>
   <div class="page-header jumbotron-fluid">
     <h2 class="page-header">Home Page</h2>
   </div>
