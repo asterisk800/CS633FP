@@ -30,4 +30,8 @@ router.get('/login', function (req, res) {
     res.render('login')
 });
 
+router.get('/enter', function (req, res) {
+    res.render('enter')
+})
+
 module.exports = router;
