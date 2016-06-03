@@ -3,10 +3,10 @@ var router = express.Router();
 var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
-var dateFormat = require('dateformat');
+var connection = require('../models/users')
 var now = new Date();
 
-/ Register
+// Register
 router.get('/register', function(req, res){
     res.render('register');
 });
@@ -21,38 +21,13 @@ router.post('/register', function (req, res) {
     var state = req.body.state;
     var picture = req.body.picture;
     var isadmin = req.body.isadmin;
+    connection.addNewUser(username,password,dob,gender,city,state);
+    res.redirect('/users/login');
 
-    // Validation
-    req.checkBody('username', 'Email is required').notEmpty();
-    req.checkBody('username', 'Email is not valid').isEmail();
-    req.checkBody('password', 'Password is required').notEmpty();
-    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-
-    var errors = req.validationErrors();
-    f(errors){
-        res.render('register',{
-            errors:errors
-        });
-    } else {
-        var newUser = new User({
-            email:email,
-            username: username,
-            password: password
-        });
-
-        User.createUser(newUser, function(err, user){
-            if(err) throw err;
-            console.log(user);
-        });
-
-        req.flash('success_msg', 'You are registered and can now login');
-
-        res.redirect('/users/login');
-    }
-})
+});
 
 router.get('/login', function (req, res) {
     res.render('login')
-})
+});
 
 module.exports = router;
