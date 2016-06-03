@@ -1,12 +1,14 @@
 CREATE DATABASE IF NOT EXISTS cs633fp;
 USE cs633fp;
 DROP TABLE IF EXISTS cs633fp.user;
-
-CREATE TABLE IF NOT EXISTS user(
+CREATE TABLE IF NOT EXISTS `cs633fp`.`user` (
   userID INTEGER PRIMARY KEY AUTO_INCREMENT,
-  username VARCHAR(100) UNIQUE,
-  password VARCHAR(100),
-  city VARCHAR(100),
-  state VARCHAR(100),
-  DOB VARCHAR(100)
-)ENGINE = innodb;
+  `username` VARCHAR(100) UNIQUE NOT NULL,
+  `password` VARCHAR(100) NOT NULL,
+  `dob` DATE NOT NULL,
+  `gender` CHAR(1) NOT NULL,
+  `city` VARCHAR(100) NOT NULL,
+  `state` VARCHAR(100) NOT NULL,
+  `picture` BLOB NULL,
+  `isadmin` BINARY(1) NOT NULL,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC));
