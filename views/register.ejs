@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html>
-<% include header_notlogged %>
+<html lang="en-us" ng-app="regApp">
+<head>
+    <% include header_notlogged %>
+    <script src="../controllers/registerController.js"></script>
+</head>
+<body>
+<% include nav %>
 
 <div class="container">
     <div class="col-sm-6 col-sm-offset-3">
@@ -10,13 +15,15 @@
                 <label>Email</label>
                 <input type="text" class="form-control" placeholder="Email" name="username">
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" placeholder="Password" name="password">
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" class="form-control" placeholder="Password" name="password2">
+            <div ng-controller="regController">
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" placeholder="Password" name="password2">
+                </div>
             </div>
 
             <div class="form-group">
@@ -51,11 +58,6 @@
         </form>
     </div>
 </div>
-
-<footer class="footer container">
-    <p>&copy; 2016 A project for CS633 Distributed Software Development and Management class. A beer & wine consumption tracker web based application that allows users to keep tabs on their favorite beverages,
-        log notes and pictures and leverage reporting tools to grab snap shots of past data..</p>
-</footer>
-
+<% include footer%>
 </body>
 </html>
