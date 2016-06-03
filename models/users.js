@@ -1,27 +1,35 @@
-var DB = require('../config/db');
-var bcrypt = require('bcrypt-nodejs');
-module.exports = {
+var Connection = require('../config/db');
 
-findAll: function() {DB.query('select * from cs633fp.user;', function(err, results, fields) {
-    if(err)
-        throw err;
-    else
-        return results;
 
-})},
+function addNewUser(username, password, dob, gender, city, state) {
 
-endConnection: function() {DB.end(function (err) {
-    console.log('Thread ID:' + DB.threadId + ' has been terminated');
+    var newUser = {
+        username: username,
+        password: password,
+        dob: dob,
+        gender: gender,
+        city: city,
+        state: state
+    };
 
-})},
+    Connection.query('INSERT INTO user SET ?', newUser, function(err, result){
+        if (err){
+            console.log(err);
+        }
+        else
+            console.log('User ' + newUser.username + ' has been saved!')
 
-createUser: function(newUser, callback){
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
-            newUser.password = hash;
-            newUser.save(callback);
-        });
     });
+
+    Connection.end(function (err) {
+        console.log('Thread ID:' + Connection.threadId + ' has been terminated');
+
+    })
+
 }
+
+module.exports = {
+    addNewUser : addNewUser
 }
+
 
