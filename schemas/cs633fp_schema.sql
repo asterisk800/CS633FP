@@ -10,5 +10,4 @@ CREATE TABLE IF NOT EXISTS `cs633fp`.`user` (
   `city` VARCHAR(100) NOT NULL,
   `state` VARCHAR(100) NOT NULL,
   `picture` BLOB NULL,
-  `isadmin` BINARY(1) NOT NULL,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+  `isadmin` BINARY(1) NOT NULL);
