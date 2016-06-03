@@ -29,6 +29,6 @@
     "mysql": "~2.10.2",
     "passport": "*",
     "passport-local": "*",
-    "orm" : "*"
+    "caminte" : "*"
   }
 }
