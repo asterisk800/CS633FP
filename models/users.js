@@ -24,12 +24,12 @@ function addNewUser(username, password, dob, gender, city, state) {
     Connection.end(function (err) {
         console.log('Thread ID:' + Connection.threadId + ' has been terminated');
 
-    })
+    });
 
-}
+};
 
 module.exports = {
     addNewUser : addNewUser
-}
+};
 
 
