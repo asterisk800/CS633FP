@@ -5,32 +5,41 @@
 <div class="container" ng-controller="consumptionController">
     <div class="col-sm-6 col-sm-offset-3">
         <h1><span class="fa fa-sign-in"></span>Enter Consumption</h1>
-        <form class="form-register" method="POST" action="/users/enter">
+        <form class="form-register" ng-submit="enterConsumption()">
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" ng-model="date" />
+            </div>
             <div class="form-group">
                 <label>Drink Type</label>
-                <select name="drinkType" ng-model="drinkType" ng-options="option.desc for option in drinkTypes track by option.id">
+                <select name="drinkType" ng-model="formData.drinkType" ng-options="option.desc for option in drinkTypes track by option.id">
                     <option value="" ng-value="undefined">-- Please Choose --</option>
-                </select>{{drinkType}}
+                </select>
             </div>
-            <div class="form-group" ng-if="drinkType.id">
+            <div class="form-group" ng-if="formData.drinkType.id">
                 <label>Drink Brand</label>
-                <select name="drinkBrand" ng-model="drinkBrand" ng-options="option.desc for option in drinkBrands|filter:{type:drinkType.id}">
+                <select name="drinkBrand" ng-model="formData.drinkBrand" ng-options="option.desc for option in drinkBrands|filter:{type:formData.drinkType.id}">
                     <option value="" ng-value="undefined">-- Please Choose --</option>
-                </select>{{drinkBrand}}
+                </select>
 
             </div>
             <div class="form-group">
                 <label>Rating</label>
-                <uib-rating ng-model="rating" max="7" titles="['Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like']" aria-labelledby="default-rating" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></uib-rating>
+                <uib-rating ng-model="formData.rating" max="7" titles="['Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like']" aria-labelledby="default-rating" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></uib-rating>
 
                 {{rating}}
             </div>
             <div class="form-group">
                 <label>Label</label>
-                <input type="file" class="form-control" placeholder="label" name="label" ng-model="label">{{label}}
+                <input type="file" class="form-control" placeholder="label" name="label" ng-model="formData.label">
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <div class="form-group">
+                <label>Comments</label>
+                <textarea name="comments" ng-model="formData.comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button><span class="help-block" ng-show="message">{{message}}</span>
         </form>
+        {{formData}}
     </div>
 </div>
 
