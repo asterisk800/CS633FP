@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% include header_notlogged %>
+  <% include header_notlogged.ejs %>
   </head>
 <body>
-  <% include nav%>
+  <% include nav.ejs%>
   <div class="page-header jumbotron-fluid">
-    <h2 class="page-header">Home Page</h2>
+    <h2 class="page-header"><%= title%></h2>
   </div>
-  <% include footer%>
+  <% include footer.ejs%>
 </body>
 </html>
