@@ -19,12 +19,12 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.userID);
+        done(null, user.username);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(userID, done) {
-        connection.query("SELECT * FROM user WHERE userID = ? ",[userID], function(err, rows){
+    passport.deserializeUser(function(username, done) {
+        connection.query("SELECT * FROM user WHERE username = ? ",[username], function(err, rows){
             done(err, rows[0]);
         });
     });
@@ -68,7 +68,7 @@ module.exports = function(passport) {
                         connection.query(insertQuery, newUserMysql,function(err, rows) {
                             //This need to be the same as the table primary key
                             console.log(rows);
-                            newUserMysql.userID = rows.insertId;
+                            //newUserMysql.userID = rows.insertId;
                             return done(null, newUserMysql);
                         });
                     }
