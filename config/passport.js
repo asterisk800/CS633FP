@@ -67,6 +67,7 @@ module.exports = function(passport) {
 
                         connection.query(insertQuery, newUserMysql,function(err, rows) {
                             //This need to be the same as the table primary key
+                            console.log(rows);
                             newUserMysql.userID = rows.insertId;
                             return done(null, newUserMysql);
                         });
