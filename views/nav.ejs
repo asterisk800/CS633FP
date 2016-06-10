@@ -1,27 +1,23 @@
-<div class="container-fluid">
-    <nav class="navbar navbar-dark bg-inverse">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#ngn_nav_bar">
-        </button>
-        <a class="navbar-brand" href="/"><img src="" alt="CS633FP" height="40"></a>
-        <div class="collapse navbar-toggleable-xs" id="ngn_nav_bar">
-            <!-- float to the right on screen sizes of small and up-->
-            <ul class="nav navbar-nav pull-sm-right">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/features">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about-us">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="/users/login">LogIn</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/users/register" class="btn btn-primary">Register</a>
-                </li>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sipsNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Sips</a>
+        </div>
+        <div class="collapse navbar-collapse" id="sipsNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li class="active"><a href="/about-us">About Us</a></li>
+                <li class="active"><a href="/features">Features</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
