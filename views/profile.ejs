@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include header_notlogged.ejs %>
+</head>
+<body>
+
+<% if ( typeof user == 'undefined'){%>
+<% include nav.ejs%>
+<%} else {%>
+<% include nav_loged.ejs%>
+<% }%>
+
+<div class="page-header jumbotron-fluid">
+    <h2>Hello <%= user.username%>, welcome to Sips </h2>
+</div>
+<div class="container-fluid">
+    <strong>Email: </strong>: <%= user.username%> <br>
+    <strong>Gender: </strong>: <%= user.gender%> <br>
+    <strong>City: </strong>: <%= user.city%> <br>
+    <strong>State: </strong>: <%= user.state%> <br>
+</div>
+
+<% include footer.ejs%>
+</body>
+</html>
