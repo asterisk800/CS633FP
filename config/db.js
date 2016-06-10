@@ -1,11 +1,9 @@
-var mysql = require('mysql');
-
-module.exports = mysql.createConnection(
-    {
+module.exports = {
+    'connection': {
         host: 'localhost',
         user: 'cs633fp',
-        password: 'cs633fp',
-        database: 'cs633fp',
-        charset: 'utf8'
-    }
-);
+        password: 'cs633fp'
+    },
+    'database': 'cs633fp',
+    'user_table': 'user'
+}

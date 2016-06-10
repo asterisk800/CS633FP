@@ -1,14 +1,11 @@
-.page-header {
-  margin-left: 10px;
+.page-header{
+    height: 100%;
+    margin-left: 15px;
 }
 
 .footer{
-    background-color: aqua;
-    float: left;
+    margin-bottom: 0;
+    margin-left:0;
+    width: 100%;
     margin-top: 100%;
-
-}
-
-.form-register {
-
 }

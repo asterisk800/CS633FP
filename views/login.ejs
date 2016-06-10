@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html>
-<% include header_notlogged %>
+<html lang="en-us" ng-app="regApp">
+<head>
+    <% include header_notlogged.ejs %>
+    <script src="../controllers/registerController.js"></script>
+</head>
+<body>
+
+<% if ( typeof user == 'undefined'){%>
+<% include nav.ejs%>
+<%} else {%>
+<% include nav_loged.ejs%>
+<% }%>
+
 <div class="container">
-
     <div class="col-sm-6 col-sm-offset-3">
-
         <h1><span class="fa fa-sign-in"></span> Login</h1>
+
+        <!-- show any messages that come back with authentication -->
+        <% if ( typeof message !== 'undefined' && message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+        <% } %>
+
         <!-- LOGIN FORM -->
         <form action="/login" method="post">
             <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" placeholder="Email" name="email">
+                <label>Username</label>
+                <input type="text" class="form-control" name="username">
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" name="password">
+            </div>
+            <div class="form-group">
+                <label>Remember Me</label>
+                <input type="checkbox" class="form-control" name="remember" value="yes">
             </div>
 
             <button type="submit" class="btn btn-warning btn-lg">Login</button>
         </form>
+
         <hr>
 
-        <p>Need an account?<a href="/users/register"> Sign up</a> </p>
+        <p>Need an account? <a href="/register">Signup</a></p>
+        <p>Or go <a href="/">home</a>.</p>
     </div>
 </div>
 </body>

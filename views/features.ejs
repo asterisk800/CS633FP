@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include header_notlogged.ejs %>
+</head>
+<body>
+
+<% if ( typeof user == 'undefined'){%>
+<% include nav.ejs%>
+<%} else {%>
+<% include nav_loged.ejs%>
+<% }%>
+
+<div class="page-header jumbotron-fluid">
+    <h2 class="page-header"><%= title%></h2>
+</div>
+<dir class="container-fluid">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">User Registration</li>
+        <li class="list-group-item list-group-item-info">User Authentication</li>
+        <li class="list-group-item list-group-item-warning">Consumption Collection: allowing users to log their favorite beverage types, brands and genres with dates, pictures, locations and notes</li>
+        <li class="list-group-item list-group-item-danger">Consumption Reporting: allowing users to report on their favorites from weeks and months past.</li>
+        <li class="list-group-item list-group-item-danger">Admin console: allowing sys admins to manage users</li>
+    </ul>
+
+</dir>
+<% include footer.ejs%>
+</body>
+</html>
