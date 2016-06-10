@@ -4,7 +4,13 @@
   <% include header_notlogged.ejs %>
   </head>
 <body>
-  <% include nav.ejs%>
+
+<% if ( typeof user == 'undefined'){%>
+<% include nav.ejs%>
+<%} else {%>
+<% include nav_loged.ejs%>
+<% }%>
+
   <div class="page-header jumbotron-fluid">
     <h2 class="page-header"><%= title%></h2>
   </div>
