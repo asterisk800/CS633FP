@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        res.render('index.ejs', {title: 'Home'}); // load the index.ejs file
+        res.render('login', {title: 'Login'}); // load the index.ejs file
     });
 
     app.get('/features', function(req, res) {
@@ -79,7 +79,7 @@ module.exports = function(app, passport) {
     app.get('/logout', function(req, res) {
         req.logout();
         req.flash('success_msg', 'You are logged out');
-        res.redirect('/');
+        res.redirect('/login');
 
     });
 };
@@ -92,5 +92,5 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }
