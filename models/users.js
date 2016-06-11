@@ -28,7 +28,7 @@ function addNewUser(username, password, dob, gender, city, state) {
 
 };
 
-function addConsumptionEntry(date, beverage, rating, imageStream, comments){
+function addConsumptionEntry(userId, date, beverage, rating, imageStream, comments){
     var imageFile = null;
     var retval;
     if(imageStream){
@@ -38,9 +38,8 @@ function addConsumptionEntry(date, beverage, rating, imageStream, comments){
     }
     comments = comments.replace(/[^\w\s\.,]/gi, '');
     date = Date.parse(date);
-    console.log(date);
     var consumptionEntry = {
-        userId: 1,
+        userId: userId,
         date: date/1000,
         drinkBrandId: beverage,
         starRating: rating,

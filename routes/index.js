@@ -71,7 +71,66 @@ module.exports = function(app, passport) {
             title: 'User Profile'
         });
     });
+    router.get('/enter', isLoggedIn, function (req, res) {
+        res.render('enter.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            title: 'Enter Consumption'
+        });
+    });
 
+    router.post('/enter', isLoggedIn, function(req, res){
+        var userId = req.user;
+
+        var date = req.body.date || null;
+        var beverage = req.body.bevID || null;
+        var rating = req.body.rating || null;
+        var comments = req.body.comments || '';
+        var imageStream = req.body.imageStream || null;
+
+        return connection.addConsumptionEntry(userId, date, beverage, rating, imageStream, comments)
+    });
+
+    router.get('/reporting', isLoggedIn, function (req, res) {
+        res.render('reporting.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            title: 'Reporting'
+        });
+    });
+
+
+    app.get('/api/getDrinkTypes', isLoggedIn, function(req, res) {
+        Connection.query('SELECT * FROM drinkTypes', function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(result);
+            }
+        });
+    });
+
+    app.get('/api/getDrinkBrands', isLoggedIn, function(req, res) {
+        Connection.query('SELECT * FROM drinkBrands', function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(result);
+            }
+        });
+    });
+
+    app.get('/api/getConsumption', isLoggedIn, function(req, res) {
+        var userId = req.user;
+        Connection.query('SELECT * FROM consumption where userId=?', userId, function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(result);
+            }
+        });
+    });
 
     // =====================================
     // LOGOUT ==============================
