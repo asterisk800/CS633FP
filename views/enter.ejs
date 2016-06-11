@@ -8,17 +8,17 @@
         <form class="form-register" ng-submit="enterConsumption()">
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" name="date" ng-model="date" />
+                <input type="date" name="date" ng-model="formData.date" />
             </div>
             <div class="form-group">
                 <label>Drink Type</label>
-                <select name="drinkType" ng-model="formData.drinkType" ng-options="option.desc for option in drinkTypes track by option.id">
+                <select name="drinkType" ng-model="formData.drinkType" ng-options="option.description for option in drinkTypes track by option.id">
                     <option value="" ng-value="undefined">-- Please Choose --</option>
                 </select>
             </div>
             <div class="form-group" ng-if="formData.drinkType.id">
                 <label>Drink Brand</label>
-                <select name="drinkBrand" ng-model="formData.drinkBrand" ng-options="option.desc for option in drinkBrands|filter:{type:formData.drinkType.id}">
+                <select name="drinkBrand" ng-model="formData.drinkBrand" ng-options="option.description for option in drinkBrands|filter:{type:formData.drinkType.id}">
                     <option value="" ng-value="undefined">-- Please Choose --</option>
                 </select>
 
@@ -39,7 +39,6 @@
             </div>
             <button type="submit" class="btn btn-default">Submit</button><span class="help-block" ng-show="message">{{message}}</span>
         </form>
-        {{formData}}
     </div>
 </div>
 

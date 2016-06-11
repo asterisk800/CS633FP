@@ -3,23 +3,16 @@
 
 angular.module( 'sips' ).controller( 'consumptionController', ['$scope', '$http',
     function( $scope, $http ) {
-    $scope.drinkTypes = [
-        {id: 1, desc: 'Beer'},
-        {id: 2, desc: 'Wine'}
-    ];
-
-
-    $scope.drinkBrands = [
-        {id: 1, type: 1, desc: 'Budweiser'},
-        {id: 2, type: 1, desc: 'Bud Light'},
-        {id: 3, type: 1, desc: 'Coors Light'},
-        {id: 4, type: 1, desc: 'Angry Angel'},
-        {id: 5, type: 2, desc: 'Chardonnay'},
-        {id: 6, type: 2, desc: 'Pinot Noir'},
-        {id: 7, type: 2, desc: 'Riesling'},
-        {id: 8, type: 2, desc: 'Merlot'}
-    ];
-
+    $http.get("/api/getDrinkTypes").success(function(data){
+            $scope.drinkTypes = data;
+        }).error(function(error){
+            console.log('getDrinkTypes: ', error);
+        });
+    $http.get("/api/getDrinkBrands").success(function(data){
+        $scope.drinkBrands = data;
+    }).error(function(error){
+        console.log('getDrinkBrands: ', error);
+    });
     $scope.formData = {};
 
     $scope.enterConsumption = function() {

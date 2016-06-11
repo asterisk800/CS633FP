@@ -6,9 +6,18 @@
     <div class="col-sm-6 col-sm-offset-3">
         <h1><span class="fa fa-sign-in"></span>Reporting</h1>
 
+        <ul class="nav nav-pills">
+            <li role="presentation" ng-class="{active : dispTab == 'total'}"><a href="#" ng-click="dispTab = 'total'">Total Consumption</a></li>
+            <li role="presentation" ng-class="{active : dispTab == 'date'}"><a href="#" ng-click="dispTab = 'date'">Consumption by Date</a></li>
+            <li role="presentation" ng-class="{active : dispTab == 'ratings'}"><a href="#" ng-click="dispTab = 'ratings'">Ratings</a></li>
+        </ul>
 
         <div>
             <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+        </div>
+        <div ng-if="legend.length > 0">
+            <h3>Legend</h3>
+            <div ng-repeat="item in legend">{{item.value}}: {{item.description}}</div>
         </div>
     </div>
 </div>

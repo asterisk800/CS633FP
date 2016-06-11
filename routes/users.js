@@ -48,4 +48,8 @@ router.get('/reporting', function (req, res) {
     res.render('reporting')
 });
 
+router.get('/', function(req, res){
+   res.render('user_index');
+});
+
 module.exports = router;
