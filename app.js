@@ -8,10 +8,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
+var port     = process.env.PORT || 3000;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
-var path = require('path');
 
 // configuration ===============================================================
 // connect to our database
@@ -32,7 +32,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-    secret: 'secret_works_all_the_time',
+    secret: 'vidyapathaisalwaysrunning',
     resave: true,
     saveUninitialized: true
 } )); // session secret
@@ -44,7 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // routes ======================================================================
-require('./routes/index')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
 
-
-module.exports = app;
+// launch ======================================================================
+app.listen(port);
+console.log('Sips app is running on ' + port);
