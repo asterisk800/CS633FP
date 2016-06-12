@@ -1,3 +1,5 @@
+// config/passport.js
+
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 
@@ -15,18 +17,16 @@ module.exports = function(passport) {
     // passport session setup ==================================================
     // =========================================================================
     // required for persistent login sessions
-    // passport needs ability to serialize and unserialize users out of session
+    // passport needs ability to serialize and unserialize user out of session
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        console.log('serializeUser user: ', user)
-        done(null, user.username);
+        done(null, user.userID);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(username, done) {
-        console.log('deserializeUser username: ', username)
-        connection.query("SELECT * FROM user WHERE username = ? ",[username], function(err, rows){
+    passport.deserializeUser(function(userID, done) {
+        connection.query("SELECT * FROM user WHERE userID = ? ",[userID], function(err, rows){
             done(err, rows[0]);
         });
     });
@@ -65,12 +65,11 @@ module.exports = function(passport) {
                             state: req.body.state
                         };
 
-                        var insertQuery = "INSERT INTO user SET ?";
+                        var insertQuery = "INSERT INTO user ( username, password, dob, gender, city, state ) values (?,?,?,?,?,?)";
+                        connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.dob, newUserMysql.gender, newUserMysql.city, newUserMysql.state],function(err, rows) {
+                            newUserMysql.userID = rows.insertId;
+                            console.log(rows)
 
-                        connection.query(insertQuery, newUserMysql,function(err, rows) {
-                            //This need to be the same as the table primary key
-                            console.log(rows);
-                            //newUserMysql.userID = rows.insertId;
                             return done(null, newUserMysql);
                         });
                     }
