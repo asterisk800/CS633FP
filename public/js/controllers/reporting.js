@@ -16,7 +16,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 console.log('getDrinkBrands: ', error);
             });
             userId = userId || 1;
-            $http.get("/api/getConsumption/" + userId).success(function (data) {
+            $http.get("/api/getConsumption").success(function (data) {
                 $scope.consumption = data;
             }).error(function (error) {
                 console.log('getConsumption: ', error);

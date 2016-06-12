@@ -27,12 +27,14 @@ angular.module( 'sips' ).controller( 'consumptionController', ['$scope', '$http'
             .then(function success(data) {
                 console.log('success: ', data);
 
-                if (!data.success) {
+                if (data.data.error) {
                     // if not successful, bind errors to error variables
-                    $scope.errorName = data.errors.name;
+                    $scope.errorName = data.data.errors.name;
+                    $scope.message = 'There was a problem entering your consumption.';
                 } else {
                     // if successful, bind success message to message
-                    $scope.message = data.message;
+                    $scope.message = data.data.message;
+                    console.log($scope.message);
                 }
             }, function error(data){
                 console.log('error: ', data);
