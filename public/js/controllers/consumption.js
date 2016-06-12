@@ -3,13 +3,14 @@
 
 angular.module( 'sips' ).controller( 'consumptionController', ['$scope', '$http',
     function( $scope, $http ) {
-    $http.get("/api/getDrinkTypes").success(function(data){
-            $scope.drinkTypes = data;
-        }).error(function(error){
-            console.log('getDrinkTypes: ', error);
-        });
-    $http.get("/api/getDrinkBrands").success(function(data){
+    $http.get("/api/getDrinks").success(function(data){
         $scope.drinkBrands = data;
+        $scope.drinkTypes = $scope.drinkBrands.reduce(function(previous, current){
+            if(previous.indexOf(current.bevType) == -1){
+                previous.push(current.bevType);
+            }
+            return previous;
+        }, []);
     }).error(function(error){
         console.log('getDrinkBrands: ', error);
     });

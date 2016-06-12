@@ -5,18 +5,19 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
     function( $scope, $http ) {
 
         function getData(userId) {
-            $http.get("/api/getDrinkTypes").success(function (data) {
-                $scope.drinkTypes = data;
-            }).error(function (error) {
-                console.log('getDrinkTypes: ', error);
-            });
-            $http.get("/api/getDrinkBrands").success(function (data) {
+            $http.get("/api/getDrinks").success(function (data) {
                 $scope.drinkBrands = data;
+                $scope.drinkTypes = $scope.drinkBrands.reduce(function(previous, current){
+                    if(previous.indexOf(current.bevType) == -1){
+                        previous.push(current.bevType);
+                    }
+                    return previous;
+                }, []);
             }).error(function (error) {
-                console.log('getDrinkBrands: ', error);
+                console.log('getDrinks: ', error);
             });
             userId = userId || 1;
-            $http.get("/api/getConsumption").success(function (data) {
+            $http.get("/api/getRatings").success(function (data) {
                 $scope.consumption = data;
             }).error(function (error) {
                 console.log('getConsumption: ', error);
@@ -69,25 +70,25 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
         //];
         function calculateTotalConsumption(consumption, drinkTypes, drinkBrands) {
             var labels = consumption.reduce(function (previous, current) {
-                var bevId = current.drinkBrandId;
+                var bevID = current.bevID;
                 var beverage = drinkBrands.find(function (element) {
-                    return element.id == bevId;
+                    return element.bevID == bevID;
                 });
-                if (!previous.includes(beverage.description)) {
-                    previous.push(beverage.description);
+                if (!previous.includes(beverage.bevName)) {
+                    previous.push(beverage.bevName);
                 }
                 return previous;
             }, []);
 
             var consumption = consumption.reduce(function (previous, current) {
-                var bevId = current.drinkBrandId;
+                var bevID = current.bevID;
                 var beverage = drinkBrands.find(function (element) {
-                    return element.id == bevId;
+                    return element.bevID == bevID;
                 });
-                if (previous[beverage.description]) {
-                    previous[beverage.description]++;
+                if (previous[beverage.bevName]) {
+                    previous[beverage.bevName]++;
                 } else {
-                    previous[beverage.description] = 1;
+                    previous[beverage.bevName] = 1;
                 }
                 return previous;
             }, {});
@@ -153,12 +154,12 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
 
         function calculateConsumptionByRatings(consumption, drinkTypes, drinkBrands) {
             var labels = consumption.reduce(function (previous, current) {
-                var bevId = current.drinkBrandId;
+                var bevID = current.bevID;
                 var beverage = drinkBrands.find(function (element) {
-                    return element.id == bevId;
+                    return element.bevID == bevID;
                 });
-                if (!previous.includes(beverage.description)) {
-                    previous.push(beverage.description);
+                if (!previous.includes(beverage.bevName)) {
+                    previous.push(beverage.bevName);
                 }
                 return previous;
             }, []);
@@ -166,29 +167,27 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             var ratings = {};
             consumption.forEach(function(element, index, fullArray){
                 var beverage = drinkBrands.find(function (dbElement) {
-                    return dbElement.id == element.drinkBrandId;
+                    return dbElement.bevID == element.bevID;
                 });
-                if(ratings[beverage.description]){
-                    ratings[beverage.description] += (element.starRating - 4);
+                if(ratings[beverage.bevName]){
+                    ratings[beverage.bevName] += (element.starRating - 4);
                 } else {
-                    ratings[beverage.description] = (element.starRating - 4);
+                    ratings[beverage.bevName] = (element.starRating - 4);
                 }
             });
-            console.log(ratings);
             var consumptionCount = consumption.reduce(function (previous, current) {
                 //height is a rating
-                var bevId = current.drinkBrandId;
+                var bevID = current.bevID;
                 var beverage = drinkBrands.find(function (element) {
-                    return element.id == bevId;
+                    return element.bevID == bevID;
                 });
-                if (previous[beverage.description]) {
-                    previous[beverage.description]++;
+                if (previous[beverage.bevName]) {
+                    previous[beverage.bevName]++;
                 } else {
-                    previous[beverage.description] = 1;
+                    previous[beverage.bevName] = 1;
                 }
                 return previous;
             }, {});
-            console.log(consumptionCount);
             var consumptionData = [];
             labels.forEach(function (element) {
                 var indRating = ratings[element] / consumptionCount[element];

@@ -12,13 +12,13 @@
             </div>
             <div class="form-group">
                 <label>Drink Type</label>
-                <select name="drinkType" ng-model="formData.drinkType" ng-options="option.description for option in drinkTypes track by option.id">
+                <select name="drinkType" ng-model="formData.drinkType" ng-options="option for option in drinkTypes">
                     <option value="" ng-value="undefined">-- Please Choose --</option>
                 </select>
             </div>
-            <div class="form-group" ng-if="formData.drinkType.id">
+            <div class="form-group" ng-if="formData.drinkType">
                 <label>Drink Brand</label>
-                <select name="drinkBrand" ng-model="formData.drinkBrand" ng-options="option.description for option in drinkBrands|filter:{type:formData.drinkType.id}">
+                <select name="drinkBrand" ng-model="formData.drinkBrand" ng-options="option.bevName for option in drinkBrands|filter:{bevType:formData.drinkType}">
                     <option value="" ng-value="undefined">-- Please Choose --</option>
                 </select>
 

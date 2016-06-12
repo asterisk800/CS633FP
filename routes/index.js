@@ -86,10 +86,9 @@ module.exports = function(app, passport) {
 
     app.post('/enter', isLoggedIn, function(req, res){
         var userId = req.user.userID;
-
         if(userId) {
             var date = req.body.date || null;
-            var beverage = req.body.bevID || null;
+            var beverage = req.body.drinkBrand.bevID || null;
             var rating = req.body.rating || null;
             var comments = req.body.comments || '';
             var imageStream = req.body.imageStream || null;
@@ -104,14 +103,13 @@ module.exports = function(app, passport) {
             comments = comments.replace(/[^\w\s\.,]/gi, '');
             date = Date.parse(date);
             var consumptionEntry = {
-                userId: userId,
+                userID: userId,
                 date: date / 1000,
-                drinkBrandId: beverage,
+                bevID: beverage,
                 starRating: rating,
-                image: imageFile,
-                comment: comments
+                comments: comments
             };
-            connection.query('INSERT INTO consumption set ?', consumptionEntry, function (err, result) {
+            connection.query('INSERT INTO bevRating set ?', consumptionEntry, function (err, result) {
                 if (err) {
                     console.log(err);
                     return err;
@@ -134,9 +132,8 @@ module.exports = function(app, passport) {
         });
     });
 
-
-    app.get('/api/getDrinkTypes', function(req, res) {
-        connection.query('SELECT * FROM drinkTypes', function(err, result){
+    app.get('/api/getDrinks', function(req, res) {
+        connection.query('SELECT * FROM beverage', function(err, result){
             if (err){
                 console.log(err);
             } else {
@@ -146,22 +143,11 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/api/getDrinkBrands', function(req, res) {
-        connection.query('SELECT * FROM drinkBrands', function(err, result){
-            if (err){
-                console.log(err);
-            } else {
-                res.setHeader('Content-Type', 'application/json');
-                res.send(result);
-            }
-        });
-    });
-
-    app.get('/api/getConsumption', isLoggedIn, function(req, res) {
+    app.get('/api/getRatings', isLoggedIn, function(req, res) {
         var userId = req.user.userID;
         console.log("userId: ", userId);
         if(userId) {
-            connection.query('SELECT * FROM consumption where userId=?', userId, function (err, result) {
+            connection.query('SELECT * FROM bevRating where userID=?', userId, function (err, result) {
                 if (err) {
                     console.log(err);
                 } else {
