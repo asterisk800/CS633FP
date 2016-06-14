@@ -153,7 +153,6 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             $scope.data = [
                 consumptionData
             ];
-            'Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like'
             $scope.legend = [
                 {
                     value: -3,
@@ -196,7 +195,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 }]
             }
         };
-        $scope.$watchGroup(['consumption', 'drinkTypes', 'drinkBrands', 'dispTab'], function(newValues, oldValues, scope) {
+        $scope.$watchGroup(['consumption', 'drinkTypes', 'drinkBrands', 'dispTab'], function(newValues) {
             var consumption = newValues[0];
             var drinkTypes = newValues[1];
             var drinkBrands = newValues[2];
