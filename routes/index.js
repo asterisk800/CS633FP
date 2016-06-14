@@ -1,4 +1,10 @@
 // app/routes.js
+var mysql = require('mysql');
+var dbconfig = require('../config/db');
+var connection = mysql.createConnection(dbconfig.connection);
+var users = require('../models/users');
+
+
 module.exports = function(app, passport) {
 
 
@@ -71,7 +77,86 @@ module.exports = function(app, passport) {
             title: 'User Profile'
         });
     });
+    app.get('/enter', isLoggedIn, function (req, res) {
+        res.render('enter.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            title: 'Enter Consumption'
+        });
+    });
 
+    app.post('/enter', isLoggedIn, function(req, res){
+        var userId = req.user.userID;
+        if(userId) {
+            var date = req.body.date || null;
+            var beverage = req.body.drinkBrand.bevID || null;
+            var rating = req.body.rating || null;
+            var comments = req.body.comments || '';
+            var imageStream = req.body.imageStream || null;
+
+            var imageFile = null;
+            var retval;
+            if (imageStream) {
+                //handle image stream storage
+
+                imageFile = "filename.jpg";
+            }
+            comments = comments.replace(/[^\w\s\.,]/gi, '');
+            date = Date.parse(date);
+            var consumptionEntry = {
+                userID: userId,
+                date: date / 1000,
+                bevID: beverage,
+                starRating: rating,
+                comments: comments
+            };
+            connection.query('INSERT INTO bevRating set ?', consumptionEntry, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    return err;
+                } else {
+                    console.log('rating has been saved: ', result);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.send({error: false, message: 'Successfully entered consumption.'});
+                }
+            });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.send({error: true, errors: {name: 'no user id', message: 'unable to enter consumption, no user id present'}});
+        }
+    });
+
+    app.get('/reporting', isLoggedIn, function (req, res) {
+        res.render('reporting.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            title: 'Reporting'
+        });
+    });
+
+    app.get('/api/getDrinks', function(req, res) {
+        connection.query('SELECT * FROM beverage', function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(result);
+            }
+        });
+    });
+
+    app.get('/api/getRatings', isLoggedIn, function(req, res) {
+        var userId = req.user.userID;
+        console.log("userId: ", userId);
+        if(userId) {
+            connection.query('SELECT * FROM bevRating where userID=?', userId, function (err, result) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.send(result);
+                }
+            });
+        }
+    });
 
     // =====================================
     // LOGOUT ==============================

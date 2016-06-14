@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<% include header_logged %>
+
+<div class="container" ng-controller="consumptionController">
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1><span class="fa fa-sign-in"></span>Enter Consumption</h1>
+        <form class="form-register" ng-submit="enterConsumption()">
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" ng-model="formData.date" />
+            </div>
+            <div class="form-group">
+                <label>Drink Type</label>
+                <select name="drinkType" ng-model="formData.drinkType" ng-options="option for option in drinkTypes">
+                    <option value="" ng-value="undefined">-- Please Choose --</option>
+                </select>
+            </div>
+            <div class="form-group" ng-if="formData.drinkType">
+                <label>Drink Brand</label>
+                <select name="drinkBrand" ng-model="formData.drinkBrand" ng-options="option.bevName for option in drinkBrands|filter:{bevType:formData.drinkType}">
+                    <option value="" ng-value="undefined">-- Please Choose --</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label>Rating</label>
+                <uib-rating ng-model="formData.rating" max="7" titles="['Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like']" aria-labelledby="default-rating" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></uib-rating>
+
+                {{rating}}
+            </div>
+            <div class="form-group">
+                <label>Label</label>
+                <input type="file" class="form-control" placeholder="label" name="label" ng-model="formData.label">
+            </div>
+            <div class="form-group">
+                <label>Comments</label>
+                <textarea name="comments" ng-model="formData.comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button><span class="help-block" ng-show="message">{{message}}</span>
+        </form>
+    </div>
+</div>
+
+<footer class="footer container">
+    <p>&copy; 2016 A project for CS633 Distributed Software Development and Management class. A beer & wine consumption tracker web based application that allows users to keep tabs on their favorite beverages,
+        log notes and pictures and leverage reporting tools to grab snap shots of past data..</p>
+</footer>
+
+</body>
+</html>
