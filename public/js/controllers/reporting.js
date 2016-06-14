@@ -54,11 +54,10 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             });
             console.log(labels, consumptionData);
             $scope.labels = labels;
-            $scope.series = ['Consumption', 'Baseline'];
+            $scope.series = ['Consumption'];
 
             $scope.data = [
-                consumptionData,
-                [0]
+                consumptionData
             ];
             $scope.legend = [];
 
@@ -98,11 +97,10 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             });
             console.log(labels, consumptionData);
             $scope.labels = labels;
-            $scope.series = ['Consumption', 'Baseline'];
+            $scope.series = ['Consumption'];
 
             $scope.data = [
-                consumptionData,
-                [0]
+                consumptionData
             ];
             $scope.legend = [];
         };
@@ -189,6 +187,15 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
         };
 
         getData();
+        $scope.options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        };
         $scope.$watchGroup(['consumption', 'drinkTypes', 'drinkBrands', 'dispTab'], function(newValues, oldValues, scope) {
             var consumption = newValues[0];
             var drinkTypes = newValues[1];

@@ -35,8 +35,6 @@
             <div class="form-group">
                 <label>Rating</label>
                 <uib-rating ng-model="formData.rating" max="7" titles="['Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like']" aria-labelledby="default-rating" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" class="form-control"></uib-rating>
-
-                {{rating}}
             </div>
             <!--<div class="form-group">-->
                 <!--<label>Label</label>-->
@@ -46,7 +44,7 @@
                 <label>Comments</label>
                 <textarea name="comments" ng-model="formData.comments" class="form-control"></textarea>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button><span class="help-block" ng-show="message">{{message}}</span>
+            <button type="submit" class="btn btn-primary">Submit</button><span class="text-success" ng-show="message"> &nbsp; &nbsp; {{message}}</span>
         </form>
     </div>
 </div>
