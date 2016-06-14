@@ -38,13 +38,13 @@
 
                 {{rating}}
             </div>
-            <div class="form-group">
-                <label>Label</label>
-                <input type="file" class="form-control" placeholder="label" name="label" ng-model="formData.label">
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label>Label</label>-->
+                <!--<input type="file" class="form-control" placeholder="label" name="label" ng-model="formData.label">-->
+            <!--</div>-->
             <div class="form-group">
                 <label>Comments</label>
-                <textarea name="comments" ng-model="formData.comments"></textarea>
+                <textarea name="comments" ng-model="formData.comments" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-default">Submit</button><span class="help-block" ng-show="message">{{message}}</span>
         </form>
