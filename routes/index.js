@@ -17,11 +17,17 @@ module.exports = function(app, passport) {
     });
 
     app.get('/features', function(req, res) {
-        res.render('features.ejs', {title: 'Features'}); // load the index.ejs file
+        res.render('features.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            title: 'Features'
+        }); // load the index.ejs file
     });
 
     app.get('/about-us', function(req, res) {
-        res.render('about-us.ejs', {title: 'About Us'}); // load the index.ejs file
+        res.render('about-us.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            title: 'About Us'
+        }); // load the index.ejs file
     });
     // =====================================
     // LOGIN ===============================
