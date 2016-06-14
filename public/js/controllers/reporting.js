@@ -4,7 +4,7 @@
 angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
     function( $scope, $http ) {
 
-        function getData(userId) {
+        function getData() {
             $http.get("/api/getDrinks").success(function (data) {
                 $scope.drinkBrands = data;
                 $scope.drinkTypes = $scope.drinkBrands.reduce(function(previous, current){
@@ -16,7 +16,6 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             }).error(function (error) {
                 console.log('getDrinks: ', error);
             });
-            userId = userId || 1;
             $http.get("/api/getRatings").success(function (data) {
                 $scope.consumption = data;
             }).error(function (error) {
@@ -24,50 +23,6 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             });
         }
 
-        //$scope.consumption = [
-        //    {
-        //        date: 1465142400,
-        //        bevID: 7,
-        //        starRating: 7,
-        //        image: null,
-        //        comment: 'riesling comments 1'
-        //    },
-        //    {
-        //        date: 1465142400,
-        //        bevID: 7,
-        //        starRating: 7,
-        //        image: null,
-        //        comment: 'riesling comments 2'
-        //    },
-        //    {
-        //        date: 1465142400,
-        //        bevID: 7,
-        //        starRating: 7,
-        //        image: null,
-        //        comment: 'riesling comments 3'
-        //    },
-        //    {
-        //        date: 1465142400,
-        //        bevID: 3,
-        //        starRating: 4,
-        //        image: null,
-        //        comment: 'Coors Light comments 1'
-        //    },
-        //    {
-        //        date: 1465142400,
-        //        bevID: 3,
-        //        starRating: 4,
-        //        image: null,
-        //        comment: 'Coors Light comments 2'
-        //    },
-        //    {
-        //        date: 1465142400,
-        //        bevID: 2,
-        //        starRating: 2,
-        //        image: null,
-        //        comment: 'Bud Light comments'
-        //    }
-        //];
         function calculateTotalConsumption(consumption, drinkTypes, drinkBrands) {
             var labels = consumption.reduce(function (previous, current) {
                 var bevID = current.bevID;
@@ -80,7 +35,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 return previous;
             }, []);
 
-            var consumption = consumption.reduce(function (previous, current) {
+            var consumptionByBev = consumption.reduce(function (previous, current) {
                 var bevID = current.bevID;
                 var beverage = drinkBrands.find(function (element) {
                     return element.bevID == bevID;
@@ -95,7 +50,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
 
             var consumptionData = [];
             labels.forEach(function (element) {
-                consumptionData.push(consumption[element]);
+                consumptionData.push(consumptionByBev[element]);
             });
             console.log(labels, consumptionData);
             $scope.labels = labels;
@@ -124,7 +79,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 return previous;
             }, []);
 
-            var consumption = consumption.reduce(function (previous, current) {
+            var consumptionByDate = consumption.reduce(function (previous, current) {
                 var date = new Date(current.date * 1000);
 
                 var dateCvt = (date.getMonth()+1) + '/' + date.getDate();
@@ -139,7 +94,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
 
             var consumptionData = [];
             labels.forEach(function (element) {
-                consumptionData.push(consumption[element]);
+                consumptionData.push(consumptionByDate[element]);
             });
             console.log(labels, consumptionData);
             $scope.labels = labels;
@@ -233,8 +188,7 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             ];
         };
 
-        var userId = 1;
-        getData(userId);
+        getData();
         $scope.$watchGroup(['consumption', 'drinkTypes', 'drinkBrands', 'dispTab'], function(newValues, oldValues, scope) {
             var consumption = newValues[0];
             var drinkTypes = newValues[1];

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
-<% include header_logged %>
+<head>
+    <% include header_logged.ejs %>
+</head>
+<body ng-app="sips">
+
+<% if ( typeof user == 'undefined'){%>
+<% include nav.ejs%>
+<%} else {%>
+<% include nav_loged.ejs%>
+<% }%>
 
 <div class="container" ng-controller="reportingController">
     <div class="col-sm-6 col-sm-offset-3">
