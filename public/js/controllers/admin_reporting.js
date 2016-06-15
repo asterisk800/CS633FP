@@ -87,7 +87,8 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
             $scope.legend = [];
             $scope.chartType = 'chart-line';
             $scope.options.legend.display = true;
-
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = 0;
         };
 
         function calculateRatingLocation(consumption, selBeverage, drinkBrands) {
@@ -165,6 +166,8 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
             ];
             $scope.chartType = 'chart-bar';
             $scope.options.legend.display = false;
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = -3;
         };
 
         function calculateRatingAge(consumption, selBeverage, drinkBrands) {
@@ -238,7 +241,8 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
             ];
             $scope.chartType = 'chart-bar';
             $scope.options.legend.display = false;
-
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = -3;
         };
 
         getData();
