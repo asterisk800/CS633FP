@@ -12,6 +12,7 @@
 <% }%>
 
 <div class="page-header jumbotron-fluid">
+    <% if (typeof user !== 'undefined') { %>
     <h2>Hello <%= user.username%>, welcome to Sips </h2>
 </div>
 <div class="container-fluid">
@@ -20,7 +21,7 @@
     <strong>City: </strong>: <%= user.city%> <br>
     <strong>State: </strong>: <%= user.state%> <br>
 </div>
-
+<% }%>
 <% include footer.ejs%>
 </body>
 </html>
