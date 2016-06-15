@@ -54,11 +54,10 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             });
             console.log(labels, consumptionData);
             $scope.labels = labels;
-            $scope.series = ['Consumption', 'Baseline'];
+            $scope.series = ['Consumption'];
 
             $scope.data = [
-                consumptionData,
-                [0]
+                consumptionData
             ];
             $scope.legend = [];
 
@@ -98,11 +97,10 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             });
             console.log(labels, consumptionData);
             $scope.labels = labels;
-            $scope.series = ['Consumption', 'Baseline'];
+            $scope.series = ['Consumption'];
 
             $scope.data = [
-                consumptionData,
-                [0]
+                consumptionData
             ];
             $scope.legend = [];
         };
@@ -155,7 +153,6 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
             $scope.data = [
                 consumptionData
             ];
-            'Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like'
             $scope.legend = [
                 {
                     value: -3,
@@ -189,7 +186,16 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
         };
 
         getData();
-        $scope.$watchGroup(['consumption', 'drinkTypes', 'drinkBrands', 'dispTab'], function(newValues, oldValues, scope) {
+        $scope.options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        };
+        $scope.$watchGroup(['consumption', 'drinkTypes', 'drinkBrands', 'dispTab'], function(newValues) {
             var consumption = newValues[0];
             var drinkTypes = newValues[1];
             var drinkBrands = newValues[2];
