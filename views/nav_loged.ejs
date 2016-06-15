@@ -20,6 +20,15 @@
                 <li class="active">
                     <a class="nav-link" href="/reporting">View Reports</a>
                 </li>
+                <%
+                if ( user.isadmin === 1){
+                %>
+                <li class="active">
+                    <a class="nav-link" href="/admin/reporting">Admin Reporting</a>
+                </li>
+                <%
+                }
+                %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

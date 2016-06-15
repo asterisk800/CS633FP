@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include header_logged.ejs %>
+    <% include admin_header.ejs %>
+</head>
+<body ng-app="sips">
+
+<% if ( typeof user == 'undefined'){%>
+<% include nav.ejs%>
+<%} else {%>
+<% include nav_loged.ejs%>
+<% }%>
+
+<div class="container" ng-controller="adminReportingController">
+    <div class="col-sm-10 col-sm-offset-1">
+        <h1><span class="fa fa-sign-in"></span>Admin Reporting (By Brand)</h1>
+        <div class="form-group">
+            <label>Drink Type</label>
+            <select name="drinkType" ng-model="model.drinkType" ng-options="option for option in drinkTypes" class="form-control">
+                <option value="" ng-value="undefined">-- Please Choose --</option>
+            </select>
+        </div>
+        <div class="form-group" ng-if="model.drinkType">
+            <label>Drink Brand</label>
+            <select ng-model="model.drinkBrand" ng-options="option.bevName for option in drinkBrands|filter:{bevType:model.drinkType}" class="form-control">
+                <option value="" ng-value="undefined">-- Please Choose --</option>
+            </select>
+        </div>
+
+        <ul class="nav nav-pills">
+            <li role="presentation" ng-class="{active : dispTab == 'dateGender'}"><a href="#" ng-click="dispTab = 'dateGender'">Date by Location</a></li>
+            <li role="presentation" ng-class="{active : dispTab == 'ratingLocation'}"><a href="#" ng-click="dispTab = 'ratingLocation'">Rating by Location</a></li>
+            <li role="presentation" ng-class="{active : dispTab == 'ratingAge'}"><a href="#" ng-click="dispTab = 'ratingAge'">Rating by Age Groups</a></li>
+        </ul>
+
+        <div ng-if="dispTab == 'dateGender'">
+            <canvas id="chart" class="chart chart-line" ng-class="chartType" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-legend="true"></canvas>
+        </div>
+        <div ng-if="dispTab == 'ratingLocation'">
+            <canvas id="chart" class="chart chart-bar" ng-class="chartType" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+        </div>
+        <div ng-if="dispTab == 'ratingAge'">
+            <canvas id="chart" class="chart chart-bar" ng-class="chartType" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+        </div>
+        <div ng-if="legend.length > 0">
+            <h3>Legend</h3>
+            <div ng-repeat="item in legend">{{item.value}}: {{item.description}}</div>
+        </div>
+    </div>
+</div>
+
+<% include footer.ejs%>
+
+</body>
+</html>
