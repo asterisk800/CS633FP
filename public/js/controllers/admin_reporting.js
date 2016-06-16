@@ -30,6 +30,13 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
             });
 
             var dataPoints = consumption[beverage.bevName];
+            if(!dataPoints || dataPoints.length == 0){
+                $scope.data = ['0'];
+                $scope.labels = ['Not enough Data'];
+                $scope.series = ['Rating'];
+                $scope.chartType = 'chart-bar';
+                return;
+            }
 
             var labels = dataPoints.reduce(function (previous, current) {
                 //label is a date
@@ -98,7 +105,13 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
             });
 
             var dataPoints = consumption[beverage.bevName];
-
+            if(!dataPoints || dataPoints.length == 0){
+                $scope.data = ['0'];
+                $scope.labels = ['Not enough Data'];
+                $scope.series = ['Rating'];
+                $scope.chartType = 'chart-bar';
+                return;
+            }
             var labels = dataPoints.reduce(function (previous, current) {
                 if (!previous.includes(current.cityState)) {
                     previous.push(current.cityState);
@@ -178,7 +191,13 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
     
             var dataPoints = consumption[beverage.bevName];
             var labels = ['21-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65+'];
-            
+            if(!dataPoints || dataPoints.length == 0){
+                $scope.data = ['0'];
+                $scope.labels = ['Not enough Data'];
+                $scope.series = ['Rating'];
+                $scope.chartType = 'chart-bar';
+                return;
+            }
             var ratings = {};
             dataPoints.forEach(function(element, index, fullArray){
                 var bucket = calculateAgeBucket(element.age);
@@ -245,6 +264,41 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
             $scope.options.scales.yAxes[0].ticks.suggestedMin = -3;
         };
 
+        function calculateRatingHistogram(consumption, selBeverage, drinkBrands) {
+
+            var beverage = drinkBrands.find(function (dbElement) {
+                return dbElement.bevID == selBeverage;
+            });
+
+            var dataPoints = consumption[beverage.bevName];
+            var labels = ['Strongly Dislike', 'Dislike', 'Mildly Dislike', 'Neutral', 'Mildly Like', 'Like', 'Strongly Like'];
+            if(!dataPoints || dataPoints.length == 0){
+                $scope.data = ['0'];
+                $scope.labels = ['Not enough Data'];
+                $scope.series = ['Rating'];
+                $scope.chartType = 'chart-bar';
+                return;
+            }
+            var ratings = [0, 0, 0, 0, 0, 0, 0];
+            dataPoints.forEach(function(element, index, fullArray){
+                var bucket = element.starRating - 1;
+                    ratings[bucket]++;
+            });
+
+            console.log(labels, ratings);
+            $scope.labels = labels;
+            $scope.series = ['Rating'];
+
+            $scope.data = [
+                ratings
+            ];
+
+            $scope.chartType = 'chart-bar';
+            $scope.options.legend.display = false;
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = 0;
+        };
+
         getData();
         $scope.options = {
             scales: {
@@ -295,6 +349,9 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
                             break;
                         case 'ratingAge':
                             calculateRatingAge(consumptionByBrand, selBeverage, drinkBrands);
+                            break;
+                        case 'ratingHistogram':
+                            calculateRatingHistogram(consumptionByBrand, selBeverage, drinkBrands);
                             break;
                         default:
                             //calculateDateLocationConsumption(consumptionByBrand, drinkTypes, drinkBrands);
