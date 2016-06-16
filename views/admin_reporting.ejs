@@ -32,6 +32,7 @@
             <li role="presentation" ng-class="{active : dispTab == 'dateGender'}"><a href="#" ng-click="dispTab = 'dateGender'">Date by Location</a></li>
             <li role="presentation" ng-class="{active : dispTab == 'ratingLocation'}"><a href="#" ng-click="dispTab = 'ratingLocation'">Rating by Location</a></li>
             <li role="presentation" ng-class="{active : dispTab == 'ratingAge'}"><a href="#" ng-click="dispTab = 'ratingAge'">Rating by Age Groups</a></li>
+            <li role="presentation" ng-class="{active : dispTab == 'ratingHistogram'}"><a href="#" ng-click="dispTab = 'ratingHistogram'">Rating Histogram</a></li>
         </ul>
 
         <div ng-if="dispTab == 'dateGender'">
@@ -41,6 +42,9 @@
             <canvas id="chart" class="chart chart-bar" ng-class="chartType" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
         </div>
         <div ng-if="dispTab == 'ratingAge'">
+            <canvas id="chart" class="chart chart-bar" ng-class="chartType" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+        </div>
+        <div ng-if="dispTab == 'ratingHistogram'">
             <canvas id="chart" class="chart chart-bar" ng-class="chartType" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
         </div>
         <div ng-if="legend.length > 0">
