@@ -6,11 +6,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Sips</a>
         </div>
         <div class="collapse navbar-collapse" id="sipsNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
                 <li class="active"><a href="/about-us">About Us</a></li>
                 <li class="active"><a href="/features">Features</a></li>
                 <li class="active">
@@ -22,10 +20,17 @@
                 <li class="active">
                     <a class="nav-link" href="/reporting">View Reports</a>
                 </li>
+                <%
+                if ( user.isadmin === 1){
+                %>
+                <li class="active">
+                    <a class="nav-link" href="/admin/reporting">Admin Reporting</a>
+                </li>
+                <%
+                }
+                %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
         </div>

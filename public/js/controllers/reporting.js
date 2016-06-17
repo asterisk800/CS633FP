@@ -60,7 +60,8 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 consumptionData
             ];
             $scope.legend = [];
-
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = 0;
         };
 
         function calculateConsumptionByDate(consumption, drinkTypes, drinkBrands) {
@@ -103,6 +104,8 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 consumptionData
             ];
             $scope.legend = [];
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = 0;
         };
 
         function calculateConsumptionByRatings(consumption, drinkTypes, drinkBrands) {
@@ -183,6 +186,8 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                     description: 'Strongly Like'
                 }
             ];
+            $scope.options.scales.yAxes[0].ticks.suggestedMax = 3;
+            $scope.options.scales.yAxes[0].ticks.suggestedMin = -3;
         };
 
         getData();

@@ -138,6 +138,20 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/admin/reporting', isLoggedIn, function (req, res) {
+        if(req.user.isadmin === 1) {
+            res.render('admin_reporting.ejs', {
+                user: req.user, // get the user out of session and pass to template
+                title: 'Admin Reporting'
+            });
+        } else {
+            res.render('reporting.ejs', {
+                user : req.user, // get the user out of session and pass to template
+                title: 'Reporting'
+            });
+        }
+    });
+
     app.get('/api/getDrinks', function(req, res) {
         connection.query('SELECT * FROM beverage', function(err, result){
             if (err){
@@ -154,6 +168,21 @@ module.exports = function(app, passport) {
         console.log("userId: ", userId);
         if(userId) {
             connection.query('SELECT * FROM bevRating where userID=?', userId, function (err, result) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.send(result);
+                }
+            });
+        }
+    });
+
+    app.get('/api/getAllRatings', isLoggedIn, function(req, res) {
+        var userId = req.user.userID;
+        var isAdmin = req.user.isadmin || 0;
+        if(userId && isAdmin == 1) {
+            connection.query('select br.*, user.city, user.state, user.dob, user.gender from bevRating as br left join user on br.userID = user.userID', function (err, result) {
                 if (err) {
                     console.log(err);
                 } else {
