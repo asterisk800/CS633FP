@@ -286,7 +286,7 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
 
             console.log(labels, ratings);
             $scope.labels = labels;
-            $scope.series = ['Rating'];
+            $scope.series = ['Number of Ratings'];
 
             $scope.data = [
                 ratings
