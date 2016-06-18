@@ -38,6 +38,16 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
                 return;
             }
 
+            dataPoints.sort(function(a,b){
+                if(a.date < b.date){
+                    return -1;
+                } else if(a.date > b.date){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+
             var labels = dataPoints.reduce(function (previous, current) {
                 //label is a date
                 var date = new Date(current.date * 1000);
