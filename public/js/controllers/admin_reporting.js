@@ -75,7 +75,6 @@ angular.module( 'sips' ).controller( 'adminReportingController', ['$scope', '$ht
                 consumptionByDate[dateElement].forEach(function(element){
                     if(element.gender == 'male'){
                        maleConsumption[i]++;
-                       femaleConsumption[i]++;
                     } else {
                        femaleConsumption[i]++;
                     }
