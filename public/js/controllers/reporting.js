@@ -79,6 +79,16 @@ angular.module( 'sips' ).controller( 'reportingController', ['$scope', '$http',
                 return previous;
             }, []);
 
+            consumption.sort(function(a,b){
+                if(a.date < b.date){
+                    return -1;
+                } else if(a.date > b.date){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+
             var consumptionByDate = consumption.reduce(function (previous, current) {
                 var date = new Date(current.date * 1000);
 
