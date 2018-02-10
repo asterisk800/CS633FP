@@ -50,3 +50,4 @@ require('./routes')(app, passport); // load our routes and pass in our app and f
 // launch ======================================================================
 app.listen(port);
 console.log('Sips app is running on ' + port);
+module.exports = app;
